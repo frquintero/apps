@@ -1,12 +1,25 @@
 # Animal Sounds Learning App
 
-Una aplicación interactiva de línea de comandos escrita en Python para apr## Estructura del código
+Una aplicación interactiva de línea de comandos escrita en Python para apr## 💡 Sistema Inteligente de Aprendizaje
 
-- `ANIMALES`: Diccionario que contiene los animales/categorías y listas de sonidos válidos (sustantivo, verbo infinitivo y forma coloquial)
-- `main()`: Función principal que maneja el bucle del juego
-- Sistema de puntuación simple con contadores de intentos y aciertos
-- Verificación flexible que acepta múltiples formas de respuesta por animal (formal e informal)
-- Manejo de entrada del usuario con verificación case-insensitiveos sonidos que hacen los animales en español.
+La aplicación utiliza un algoritmo adaptativo que optimiza el proceso de aprendizaje:
+
+### **Cómo funciona:**
+1. **Selección inteligente**: Los animales se eligen basándose en pesos dinámicos
+2. **Refuerzo positivo**: Animales acertados tienen menor probabilidad de repetirse
+3. **Repaso automático**: Animales fallados se agregan a una cola de revisión
+4. **Revisión programada**: Después de cada 5 preguntas, se prioriza el repaso de animales fallados
+
+### **Beneficios:**
+- ✅ **Aprendizaje eficiente**: Se enfoca en conceptos que necesitas practicar más
+- ✅ **Motivación**: Menos repetición de lo que ya sabes, más práctica de lo que necesitas
+- ✅ **Progreso visible**: Estadísticas finales muestran tu nivel de dominio
+- ✅ **Adaptativo**: El algoritmo se ajusta a tu rendimiento en tiempo real
+
+### **Indicadores visuales:**
+- 🔄 **Repasando**: Cuando se revisa un animal previamente fallado
+- 📝 **Agregado a repaso**: Cuando un animal fallado se añade a la lista de revisión
+- 📊 **Estadísticas**: Nivel de dominio y animales en lista de repaso al finalizaros sonidos que hacen los animales en español.
 
 ## Descripción
 
@@ -20,10 +33,9 @@ Esta aplicación te ayuda a aprender los sonidos de diversos animales y categor�
 - **Respuestas flexibles**: Acepta sustantivos, verbos infinitivos y formas coloquiales (ej. "ladrido", "ladrar" o "ladra" para el perro).
 - **Interfaz interactiva**: Preguntas aleatorias con retroalimentación inmediata.
 - **Pantalla limpia**: La terminal se limpia automáticamente antes de mostrar el mensaje de bienvenida.
-- **Sistema de puntuación**: Rastrea tus intentos y respuestas correctas.
-- **Salida fácil**: Escribe 'quit' o 'q' para salir en cualquier momento.
-- **Solo librería estándar**: No requiere instalación de paquetes adicionales.
-- **Comentarios detallados**: Código bien documentado para facilitar el aprendizaje.
+- **Sistema inteligente de aprendizaje**: Algoritmo adaptativo que ajusta la frecuencia de preguntas
+- **Repaso automático**: Animales fallados se revisan después de 5 preguntas hasta acertarlos
+- **Pesos dinámicos**: Animales acertados tienen menor probabilidad de repetirse
 
 ## Requisitos
 
@@ -58,43 +70,42 @@ python3 animal_sounds.py
 ¡Bienvenido a la aplicación de sonidos de animales!
 Escribe 'quit' o 'q' en cualquier momento para salir.
 
+💡 Sistema inteligente: Los animales que aciertes tendrán menor probabilidad de repetirse.
+🔄 Los que falles serán repasados después de varias preguntas.
+
 ¿Cuál es el sonido que hace el/la perro? ladra
-¡Correcto!
+¡Correcto! ✅
 
 ¿Cuál es el sonido que hace el/la gato? maullar
-¡Correcto!
+¡Correcto! ✅
 
-¿Cuál es el sonido que hace el/la vaca? muge
-¡Correcto!
+¿Cuál es el sonido que hace el/la vaca? mugir
+Incorrecto – las respuestas correctas son 'mugido' o 'mugir' o 'muge'
+📝 vaca agregado a la lista de repaso.
 
 ¿Cuál es el sonido que hace el/la caballo? relincho
-¡Correcto!
+¡Correcto! ✅
 
 ¿Cuál es el sonido que hace el/la rana? croa
-¡Correcto!
+¡Correcto! ✅
 
-¿Cuál es el sonido que hace el/la elefante? barrita
-¡Correcto!
+¿Cuál es el sonido que hace el/la oveja? bala
+¡Correcto! ✅
 
-¿Cuál es el sonido que hace el/la insectos voladores? zumba
-¡Correcto!
-
-¿Cuál es el sonido que hace el/la loro? parlotea
-¡Correcto!
-
-¿Cuál es el sonido que hace el/la lobo? aúlla
-¡Correcto!
-
-¿Cuál es el sonido que hace el/la grillo? chirría
-¡Correcto!
-
-¿Cuál es el sonido que hace el/la reptil? sisea
-Incorrecto – las respuestas correctas son 'siseo' o 'sisear' o 'sisea'
+🔄 Repasando: vaca
+¿Cuál es el sonido que hace el/la vaca? muge
+¡Correcto! ✅
 
 quit
 
 ¡Gracias por jugar!
-Puntuación final: 10/11 correctas
+Puntuación final: 6/7 correctas
+
+📊 Estadísticas de aprendizaje:
+• Animales preguntados: 6
+• Animales dominados: 6
+• Animales en lista de repaso: 0
+• Nivel de dominio: 100.0%
 ```
 
 ## Lista de animales incluidos
@@ -157,8 +168,14 @@ Si después de la instalación global el comando no funciona:
    python3 animal_sounds.py
    ```
 
-### El script no encuentra Python 3
-Asegúrate de que Python 3 esté instalado y disponible en el PATH:
-```bash
-python3 --version
-```
+### Error de entrada (EOFError)
+Si ves un error como "EOF when reading a line":
+
+- ✅ **Solución automática**: La aplicación maneja este error automáticamente
+- 🔄 **Causa**: Suele ocurrir cuando se ejecuta sin terminal interactiva
+- 💡 **Recomendación**: Ejecuta en una terminal real: `python3 animal_sounds.py`
+
+### Interrupción del programa (Ctrl+C)
+- ✅ **Manejo seguro**: La aplicación se cierra ordenadamente
+- 📊 **Estadísticas**: Muestra las estadísticas finales antes de salir
+- 🔄 **Continuación**: Puedes reanudar en cualquier momento
