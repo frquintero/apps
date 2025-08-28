@@ -1,25 +1,27 @@
 # Animal Sounds Learning App
 
-Una aplicación interactiva de línea de comandos escrita en Python para apr## 💡 Sistema Inteligente de Aprendizaje
+Una aplicación interactiva de línea de comandos escrita en Python para aprender los sonidos que hacen los animales en español.
 
-La aplicación utiliza un algoritmo adaptativo que optimiza el proceso de aprendizaje:
+## 💡 Sistema Inteligente de Aprendizaje
+
+La aplicación usa un flujo simple basado en etiquetas y una cola de refuerzo para priorizar lo no visto y repasar los errores sin repetición innecesaria:
 
 ### **Cómo funciona:**
-1. **Selección inteligente**: Los animales se eligen basándose en pesos dinámicos
-2. **Refuerzo positivo**: Animales acertados tienen menor probabilidad de repetirse
-3. **Repaso automático**: Animales fallados se agregan a una cola de revisión
-4. **Revisión programada**: Después de cada 5 preguntas, se prioriza el repaso de animales fallados
+1. **Etiquetas por pregunta**: `n` (no preguntada), `p` (preguntada y correcta), `pn` (preguntada e incorrecta).
+2. **Prioridad de selección**: Siempre se elige al azar entre las de etiqueta `n` cuando existan.
+3. **Refuerzo de errores**: Las `pn` entran a una cola y reaparecen cada cierto tiempo (intercaladas).
+4. **Reinicio de ciclo**: Cuando todas están en `p`, se reinician a `n` para otra ronda.
 
 ### **Beneficios:**
-- ✅ **Aprendizaje eficiente**: Se enfoca en conceptos que necesitas practicar más
-- ✅ **Motivación**: Menos repetición de lo que ya sabes, más práctica de lo que necesitas
-- ✅ **Progreso visible**: Estadísticas finales muestran tu nivel de dominio
-- ✅ **Adaptativo**: El algoritmo se ajusta a tu rendimiento en tiempo real
+- ✅ **Cobertura primero**: Prioriza aprender lo no preguntado antes de repetir.
+- ✅ **Refuerzo útil**: Los fallos reaparecen con cadencia breve para consolidar.
+- ✅ **Sencillo y predecible**: Sin repeticiones inmediatas si hay pendientes.
+- ✅ **Estadísticas claras**: Cobertura de la sesión y cola de refuerzo.
 
 ### **Indicadores visuales:**
-- 🔄 **Repasando**: Cuando se revisa un animal previamente fallado
-- 📝 **Agregado a repaso**: Cuando un animal fallado se añade a la lista de revisión
-- 📊 **Estadísticas**: Nivel de dominio y animales en lista de repaso al finalizaros sonidos que hacen los animales en español.
+- 🔄 **Repaso**: Indicador cuando una pregunta está en refuerzo.
+- 📝 **Agregado a refuerzo**: Al fallar, se añade a la cola priorizada.
+- 📊 **Estadísticas**: “Animales preguntados X de Y” y tamaño de la cola.
 
 ## Descripción
 
@@ -33,9 +35,8 @@ Esta aplicación te ayuda a aprender los sonidos de diversos animales y categor�
 - **Respuestas flexibles**: Acepta sustantivos, verbos infinitivos y formas coloquiales (ej. "ladrido", "ladrar" o "ladra" para el perro).
 - **Interfaz interactiva**: Preguntas aleatorias con retroalimentación inmediata.
 - **Pantalla limpia**: La terminal se limpia automáticamente antes de mostrar el mensaje de bienvenida.
-- **Sistema inteligente de aprendizaje**: Algoritmo adaptativo que ajusta la frecuencia de preguntas
-- **Repaso automático**: Animales fallados se revisan después de 5 preguntas hasta acertarlos
-- **Pesos dinámicos**: Animales acertados tienen menor probabilidad de repetirse
+- **Sistema inteligente (etiquetas)**: Prioriza `n`, refuerza `pn`, reinicia `p→n`.
+- **Refuerzo intercalado**: Los errores reaparecen cada pocas preguntas.
 
 ## Requisitos
 
@@ -70,8 +71,8 @@ python3 animal_sounds.py
 ¡Bienvenido a la aplicación de sonidos de animales!
 Escribe 'quit' o 'q' en cualquier momento para salir.
 
-💡 Sistema inteligente: Los animales que aciertes tendrán menor probabilidad de repetirse.
-🔄 Los que falles serán repasados después de varias preguntas.
+💡 Modo etiquetas: prioriza no preguntados ('n') y refuerza fallos ('pn').
+🔄 Refuerzo: preguntas falladas reaparecen cada cierto tiempo.
 
 ¿Cuál es el sonido que hace el/la perro? ladra
 ¡Correcto! ✅
@@ -81,7 +82,7 @@ Escribe 'quit' o 'q' en cualquier momento para salir.
 
 ¿Cuál es el sonido que hace el/la vaca? mugir
 Incorrecto – las respuestas correctas son 'mugido' o 'mugir' o 'muge'
-📝 vaca agregado a la lista de repaso.
+📝 vaca agregado a repaso inmediato.
 
 ¿Cuál es el sonido que hace el/la caballo? relincho
 ¡Correcto! ✅
@@ -92,7 +93,7 @@ Incorrecto – las respuestas correctas son 'mugido' o 'mugir' o 'muge'
 ¿Cuál es el sonido que hace el/la oveja? bala
 ¡Correcto! ✅
 
-🔄 Repasando: vaca
+🔄 Repaso: vaca
 ¿Cuál es el sonido que hace el/la vaca? muge
 ¡Correcto! ✅
 
@@ -101,11 +102,9 @@ quit
 ¡Gracias por jugar!
 Puntuación final: 6/7 correctas
 
-📊 Estadísticas de aprendizaje:
-• Animales preguntados: 6
-• Animales dominados: 6
-• Animales en lista de repaso: 0
-• Nivel de dominio: 100.0%
+📊 Estadísticas de la sesión:
+• Animales preguntados 6 de 50
+• En refuerzo: 0
 ```
 
 ## Lista de animales incluidos

@@ -1,0 +1,1305 @@
+{
+  "global_step": 0,
+  "items": {
+    "perro": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "gato": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "vaca": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "caballo": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "oveja": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "cerdo": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "gallina": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "gallo": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "pato": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "ganso": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "elefante": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "león": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "tigre": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "oso": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "mono": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "águila": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "búho": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "rana": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "serpiente": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "mosquito": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "abeja": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "delfín": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "ballena": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "cocodrilo": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "pájaro": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "cuervo": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "paloma": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "loro": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "canario": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "lobo": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "zorro": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "conejo": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "ratón": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "ardilla": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "ciervo": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "jabalí": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "grillo": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "saltamontes": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "avispa": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "mosca": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "culebra": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "víbora": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "insectos voladores": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "aves pequeñas": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "felinos grandes": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "reptiles": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "mamíferos pequeños": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "aves acuáticas": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "insectos": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    },
+    "mamíferos grandes": {
+      "stats": {
+        "successes": 0,
+        "failures": 0,
+        "streak": 0,
+        "last_result": null
+      },
+      "srs": {
+        "reps": 0,
+        "interval": 0,
+        "ease": 2.5,
+        "next_due": 0,
+        "last_seen_step": -1
+      },
+      "lapse": {
+        "lapses": 0,
+        "in_lapse": false,
+        "lapse_steps_remaining": 0,
+        "lapse_due_step": 0
+      },
+      "meta": {
+        "created_at_step": 0,
+        "updated_at_step": 0,
+        "seen": false
+      }
+    }
+  }
+}

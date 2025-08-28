@@ -4,9 +4,10 @@ Aplicación interactiva de línea de comandos para aprender sonidos de animales 
 El usuario debe adivinar el sonido que hace cada animal o categoría de animales.
 """
 
-import random  # Para seleccionar animales aleatoriamente
+import random  # Para selección aleatoria controlada
 import sys     # Para manejar la salida del programa si es necesario
-import os      # Para limpiar la pantalla del terminal
+import os      # Para limpiar la pantalla del terminal y manejar archivos
+# sin dependencias externas
 
 # Diccionario de animales/categorías y sus sonidos en español
 # Incluye sustantivo, verbo infinitivo y forma coloquial (3ª persona singular)
@@ -65,76 +66,77 @@ ANIMALES = {
     "mamíferos grandes": ["gruñido", "gruñir", "gruñe"],
 }
 
-def seleccionar_animal_inteligente(animales_preguntados, cola_revision, contador_preguntas):
-    """
-    Selecciona un animal usando un algoritmo inteligente:
-    - Animales respondidos correctamente tienen menor probabilidad de ser preguntados
-    - Animales respondidos incorrectamente se agregan a una cola de revisión
-    - Después de 5 preguntas, se prioriza la cola de revisión
-    """
-    # Si hay animales en la cola de revisión y han pasado 8 preguntas, priorizarlos
-    if cola_revision and contador_preguntas % 9 == 0:  # Cada 9 preguntas (contando desde 0)
-        animal = cola_revision.pop(0)  # Sacar el primer animal de la cola
-        print(f"🔄 Repasando: {animal}")
-        return animal
+# (SRS/persistencia eliminados para un flujo simple por etiquetas)
 
-    # Crear lista de animales disponibles con pesos
-    animales_disponibles = []
-    pesos = []
+REVIEW_EVERY = 4  # cada cuántas preguntas lanzar una de refuerzo si hay
 
-    for animal in ANIMALES.keys():
-        if animal in animales_preguntados:
-            # Si ya fue preguntado, reducir su peso (menor probabilidad)
-            if animales_preguntados[animal]:  # Respondido correctamente
-                peso = 0.5  # Peso muy bajo para animales ya acertados (10x menos probable)
-            else:  # Respondido incorrectamente
-                peso = 2  # Peso medio para animales fallados (pero no en cola de revisión)
-        else:
-            # Nunca preguntado - peso alto
-            peso = 10  # Peso mucho más alto para animales nunca preguntados
 
-        animales_disponibles.append(animal)
-        pesos.append(peso)
+def seleccionar_siguiente_por_etiquetas(labels, review_queue, num_preguntas):
+    # ¿Toca refuerzo?
+    if review_queue and num_preguntas > 0 and (num_preguntas % REVIEW_EVERY == 0):
+        return review_queue[0], True
 
-    # Seleccionar animal basado en pesos
-    animal_seleccionado = random.choices(animales_disponibles, weights=pesos, k=1)[0]
+    # Elegir de 'n' si hay
+    pool_n = [a for a, tag in labels.items() if tag == 'n']
+    if pool_n:
+        return random.choice(pool_n), False
 
-    # Debug: mostrar estadísticas de selección (opcional - descomentar para debugging)
-    # if contador_preguntas < 5:  # Solo mostrar las primeras 5 preguntas
-    #     print(f"DEBUG - Pesos: Correctos={sum(1 for p in pesos if p == 0.5)}, Incorrectos={sum(1 for p in pesos if p == 2)}, Nuevos={sum(1 for p in pesos if p == 10)}")
+    # Si todas están en 'p', reiniciar a 'n'
+    if labels and all(tag == 'p' for tag in labels.values()):
+        for a in labels:
+            labels[a] = 'n'
+        pool_n = list(labels.keys())
+        return random.choice(pool_n), False
 
-    return animal_seleccionado
+    # Si hay 'pn' pero no toca refuerzo, elegir de 'p' para espaciar
+    pool_p = [a for a, tag in labels.items() if tag == 'p']
+    if pool_p:
+        return random.choice(pool_p), False
+
+    # Si no hay 'p', usar refuerzo si existe
+    if review_queue:
+        return review_queue[0], True
+
+    # Fallback
+    return random.choice(list(labels.keys() or ANIMALES.keys())), False
+
 
 def main():
     """
     Función principal que ejecuta el bucle del juego.
     """
-    # Inicializar variables de puntuación
-    intentos_totales = 0  # Contador de intentos realizados
-    respuestas_correctas = 0  # Contador de respuestas correctas
+    # Estado de sesión (etiquetas + refuerzo)
+    intentos_totales = 0
+    respuestas_correctas = 0
+    num_preguntas = 0
+    labels = {animal: 'n' for animal in ANIMALES.keys()}
+    asked_set = set()  # animales preguntados al menos una vez en la sesión
+    review_queue = []  # cola de animales con etiqueta 'pn'
 
-    # Variables para el algoritmo inteligente
-    animales_preguntados = {}  # Diccionario: animal -> True (correcto) / False (incorrecto)
-    cola_revision = []  # Cola de animales que necesitan revisión
-    contador_preguntas = 0  # Contador para saber cuándo revisar
+    # Configurar codificación robusta para I/O de consola
+    try:
+        sys.stdin.reconfigure(encoding='utf-8', errors='replace')
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
 
     # Limpiar la pantalla del terminal antes de mostrar el mensaje de bienvenida
     os.system('clear')
 
     print("¡Bienvenido a la aplicación de sonidos de animales!")
     print("Escribe 'quit' o 'q' en cualquier momento para salir.\n")
-    print("💡 Sistema inteligente: Los animales que aciertes tendrán menor probabilidad de repetirse.")
-    print("🔄 Los que falles serán repasados después de varias preguntas.\n")
+    print("💡 Modo etiquetas: prioriza no preguntados ('n') y refuerza fallos ('pn').")
+    print("🔄 Refuerzo: preguntas falladas reaparecen cada cierto tiempo.\n")
 
     # Bucle principal del juego
     try:
         while True:
-            # Seleccionar un animal usando el algoritmo inteligente
-            animal = seleccionar_animal_inteligente(animales_preguntados, cola_revision, contador_preguntas)
+            # Seleccionar siguiente por etiquetas + refuerzo
+            animal, es_refuerzo = seleccionar_siguiente_por_etiquetas(labels, review_queue, num_preguntas)
             sonidos_validos = ANIMALES[animal]
 
             # Hacer la pregunta al usuario
-            pregunta_tipo = "🔄 Repaso" if animal in cola_revision else "❓ Pregunta"
+            pregunta_tipo = "🔄 Repaso" if es_refuerzo else "❓ Pregunta"
             try:
                 respuesta_usuario = input(f"{pregunta_tipo} - ¿Cuál es el sonido que hace el/la {animal}? ").strip()
             except EOFError:
@@ -142,43 +144,43 @@ def main():
                 print("Esto puede suceder cuando se ejecuta el script sin una terminal interactiva.")
                 print("Intenta ejecutar: python3 animal_sounds.py")
                 break
+            except UnicodeError:
+                # Fallback de lectura robusta si la terminal no es UTF-8
+                try:
+                    raw = sys.stdin.buffer.readline()
+                    respuesta_usuario = raw.decode('utf-8', errors='replace').strip()
+                except Exception:
+                    print("\n\n❌ Error de codificación en la entrada. Intenta sin acentos o cambia la codificación de la terminal.")
+                    continue
 
             # Verificar si el usuario quiere salir
             if respuesta_usuario.lower() in ['quit', 'q']:
                 break
 
-            # Incrementar contador de intentos y preguntas
+            # Incrementar contadores
             intentos_totales += 1
-            contador_preguntas += 1
+            num_preguntas += 1
+            asked_set.add(animal)
 
             # Verificar la respuesta (ignorando mayúsculas/minúsculas y espacios)
             # Comprobar si la respuesta está en la lista de sonidos válidos
-            respuesta_correcta = False
-            for sonido in sonidos_validos:
-                if respuesta_usuario.lower() == sonido.lower():
-                    respuesta_correcta = True
-                    break
+            respuesta_correcta = any(respuesta_usuario.lower() == sonido.lower() for sonido in sonidos_validos)
 
-            # Actualizar el seguimiento del animal
+            # Actualizar etiquetas y refuerzo
             if respuesta_correcta:
                 print("¡Correcto! ✅")
                 respuestas_correctas += 1
-                animales_preguntados[animal] = True
-
-                # Si el animal estaba en la cola de revisión, removerlo
-                if animal in cola_revision:
-                    cola_revision.remove(animal)
-                    print(f"🎯 {animal} dominado - removido de la lista de repaso.")
+                labels[animal] = 'p'
+                if es_refuerzo and review_queue and review_queue[0] == animal:
+                    review_queue.pop(0)
             else:
                 # Mostrar todas las opciones válidas
                 opciones = " o ".join(f"'{sonido}'" for sonido in sonidos_validos)
                 print(f"Incorrecto – las respuestas correctas son {opciones}")
-                animales_preguntados[animal] = False
-
-                # Agregar a la cola de revisión si no está ya
-                if animal not in cola_revision:
-                    cola_revision.append(animal)
-                    print(f"📝 {animal} agregado a la lista de repaso.")
+                labels[animal] = 'pn'
+                if animal not in review_queue:
+                    review_queue.append(animal)
+                    print(f"📝 {animal} agregado a refuerzo.")
 
             print()  # Línea en blanco para mejor legibilidad
 
@@ -191,16 +193,11 @@ def main():
     finally:
         # Mostrar estadísticas finales si se jugó al menos una ronda
         if intentos_totales > 0:
-            print(f"\n📊 Estadísticas de aprendizaje:")
-            print(f"• Animales preguntados: {len(animales_preguntados)}")
-            animales_acertados = sum(1 for resultado in animales_preguntados.values() if resultado)
-            print(f"• Animales dominados: {animales_acertados}")
-            print(f"• Animales en lista de repaso: {len(cola_revision)}")
-
-            if animales_preguntados:
-                porcentaje_dominio = (animales_acertados / len(animales_preguntados)) * 100
-                print(f"• Nivel de dominio: {porcentaje_dominio:.1f}%")
-
+            print(f"\n📊 Estadísticas de la sesión:")
+            preguntados = len(asked_set)
+            total = len(ANIMALES)
+            print(f"• Animales preguntados {preguntados} de {total}")
+            print(f"• En refuerzo: {len(review_queue)}")
             print(f"Puntuación final: {respuestas_correctas}/{intentos_totales} correctas")
 
     # Salir del programa
