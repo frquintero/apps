@@ -1,72 +1,76 @@
 # Animal Sounds Learning App
 
-Una aplicación interactiva de línea de comandos escrita en Python para aprender los sonidos que hacen los animales en español.
+An interactive command-line app in Python to learn the sounds animals make in Spanish.
 
-## 💡 Sistema Inteligente de Aprendizaje
+Note: The app prompts and accepted answers are in Spanish. It is intended for Spanish learners/users.
 
-La aplicación usa un flujo simple basado en etiquetas y una cola de refuerzo para priorizar lo no visto y repasar los errores sin repetición innecesaria:
+## Intelligent Learning Flow
 
-### **Cómo funciona:**
-1. **Etiquetas por pregunta**: `n` (no preguntada), `p` (preguntada y correcta), `pn` (preguntada e incorrecta).
-2. **Prioridad de selección**: Siempre se elige al azar entre las de etiqueta `n` cuando existan.
-3. **Refuerzo de errores**: Las `pn` entran a una cola y reaparecen cada cierto tiempo (intercaladas).
-4. **Reinicio de ciclo**: Cuando todas están en `p`, se reinician a `n` para otra ronda.
+The app uses a simple label-based flow with a reinforcement queue to prioritize unseen items and revisit mistakes without unnecessary repetition:
 
-### **Beneficios:**
-- ✅ **Cobertura primero**: Prioriza aprender lo no preguntado antes de repetir.
-- ✅ **Refuerzo útil**: Los fallos reaparecen con cadencia breve para consolidar.
-- ✅ **Sencillo y predecible**: Sin repeticiones inmediatas si hay pendientes.
-- ✅ **Estadísticas claras**: Cobertura de la sesión y cola de refuerzo.
+### How it works
+1. Labels per question: `n` (not asked), `p` (asked and correct), `pn` (asked and incorrect).
+2. Selection priority: Always pick randomly from `n` when available.
+3. Mistake reinforcement: `pn` items go into a queue and reappear periodically (interleaved).
+4. Cycle reset: When everything is `p`, reset all back to `n` for another round.
 
-### **Indicadores visuales:**
-- 🔄 **Repaso**: Indicador cuando una pregunta está en refuerzo.
-- 📝 **Agregado a refuerzo**: Al fallar, se añade a la cola priorizada.
-- 📊 **Estadísticas**: “Animales preguntados X de Y” y tamaño de la cola.
+### Benefits
+- Efficient coverage: Prioritizes unseen items before repeating.
+- Helpful reinforcement: Mistakes reappear on a short cadence to consolidate memory.
+- Simple and predictable: No immediate repeats while there are pending `n`.
+- Clear stats: Session coverage and reinforcement queue size.
 
-## Descripción
+### Visual indicators
+- 🔄 Review: Shown when a question comes from the reinforcement queue.
+- 📝 Added to reinforcement: Shown when you miss a question.
+- 📊 Stats: “Animals asked X of Y” and queue size at the end.
 
-Esta aplicación te ayuda a aprender los sonidos de diversos animales y categorías de animales en español. El programa selecciona aleatoriamente un animal o categoría y te pide que escribas el sonido correspondiente. Es perfecta para estudiantes de español, niños o cualquier persona interesada en la naturaleza.
+## Description
 
-**🚀 Acceso global**: Una vez configurado, puedes ejecutar `animals` desde cualquier directorio del sistema.
+This app helps you practice the sounds of many animals and animal categories in Spanish. It randomly selects an animal or category and asks for the sound. Great for Spanish learners, kids, or anyone curious about nature.
 
-## Características
+🚀 Global access: Once configured, you can run `animals` from anywhere.
 
-- **Más de 40 animales y categorías**: Incluye animales individuales y grupos categorizados por sonidos similares (ej. "insectos voladores" hacen "zumbido").
-- **Respuestas flexibles**: Acepta sustantivos, verbos infinitivos y formas coloquiales (ej. "ladrido", "ladrar" o "ladra" para el perro).
-- **Interfaz interactiva**: Preguntas aleatorias con retroalimentación inmediata.
-- **Pantalla limpia**: La terminal se limpia automáticamente antes de mostrar el mensaje de bienvenida.
-- **Sistema inteligente (etiquetas)**: Prioriza `n`, refuerza `pn`, reinicia `p→n`.
-- **Refuerzo intercalado**: Los errores reaparecen cada pocas preguntas.
+## Features
 
-## Requisitos
+- 40+ animals and categories: Includes individual animals and grouped categories (e.g., “insectos voladores” make “zumbido”).
+- Flexible answers: Accepts Spanish nouns, infinitive verbs, and common forms (e.g., “ladrido”, “ladrar”, “ladra”).
+- Interactive CLI: Random questions with immediate feedback.
+- Clean screen: The terminal clears before the welcome message.
+- Label-based scheduler: Prioritizes `n`, reinforces `pn`, resets `p→n`.
+- Interleaved reinforcement: Errors resurface every few questions.
 
-- Python 3.6 o superior
-- Solo utiliza la librería estándar de Python (random, sys)
+## Requirements
 
-## Instalación
+- Python 3.6+
+- Standard library only (random, sys)
 
-1. Clona o descarga el archivo `animal_sounds.py`
-2. Asegúrate de tener Python 3 instalado en tu sistema
-3. **Para acceso global (opcional)**: Ejecuta el comando desde cualquier directorio usando `animals`
+## Installation
 
-### Configuración de acceso global
+1. Clone or download `animal_sounds.py`.
+2. Make sure Python 3 is installed.
+3. Optional global access: create a small wrapper to run `animals` from anywhere.
 
-Si seguiste los pasos de instalación global, puedes ejecutar el juego desde cualquier directorio:
+### Running
+
+Global (if configured):
 
 ```bash
 animals
 ```
 
-Si no configuraste el acceso global, ejecuta:
+Local:
 
 ```bash
 python3 animal_sounds.py
 ```
 
-## Ejemplo de uso
+## Example
+
+The UI is in Spanish by design; here’s a short sample:
 
 ```
-[Terminal limpia - sin texto anterior visible]
+[Clean terminal]
 
 ¡Bienvenido a la aplicación de sonidos de animales!
 Escribe 'quit' o 'q' en cualquier momento para salir.
@@ -77,21 +81,9 @@ Escribe 'quit' o 'q' en cualquier momento para salir.
 ¿Cuál es el sonido que hace el/la perro? ladra
 ¡Correcto! ✅
 
-¿Cuál es el sonido que hace el/la gato? maullar
-¡Correcto! ✅
-
 ¿Cuál es el sonido que hace el/la vaca? mugir
 Incorrecto – las respuestas correctas son 'mugido' o 'mugir' o 'muge'
-📝 vaca agregado a repaso inmediato.
-
-¿Cuál es el sonido que hace el/la caballo? relincho
-¡Correcto! ✅
-
-¿Cuál es el sonido que hace el/la rana? croa
-¡Correcto! ✅
-
-¿Cuál es el sonido que hace el/la oveja? bala
-¡Correcto! ✅
+📝 vaca agregado a refuerzo.
 
 🔄 Repaso: vaca
 ¿Cuál es el sonido que hace el/la vaca? muge
@@ -99,24 +91,22 @@ Incorrecto – las respuestas correctas son 'mugido' o 'mugir' o 'muge'
 
 quit
 
-¡Gracias por jugar!
-Puntuación final: 6/7 correctas
-
 📊 Estadísticas de la sesión:
 • Animales preguntados 6 de 50
 • En refuerzo: 0
+Puntuación final: 6/7 correctas
 ```
 
-## Lista de animales incluidos
+## Included animals
 
-### Animales individuales:
+### Individual animals
 - perro, gato, vaca, caballo, oveja, cerdo, gallina, gallo, pato, ganso
 - elefante, león, tigre, oso, mono, águila, búho, rana, serpiente
 - mosquito, abeja, delfín, ballena, cocodrilo, pájaro, cuervo, paloma
 - loro, canario, lobo, zorro, conejo, ratón, ardilla, ciervo, jabalí
 - grillo, saltamontes, avispa, mosca, culebra, víbora
 
-### Categorías:
+### Categories
 - insectos voladores (zumbido)
 - aves pequeñas (trino)
 - felinos grandes (rugido)
@@ -126,55 +116,49 @@ Puntuación final: 6/7 correctas
 - insectos (chirrido)
 - mamíferos grandes (gruñido)
 
-## Estructura del código
+## Code structure
 
-- `ANIMALES`: Diccionario que contiene los animales/categorías y listas de sonidos válidos (sustantivo, verbo y formas coloquiales)
-- `main()`: Función principal que maneja el bucle del juego
-- Sistema de puntuación simple con contadores de intentos y aciertos
-- Verificación flexible que acepta múltiples formas de respuesta por animal
-- Manejo de entrada del usuario con verificación case-insensitive
+- `ANIMALES`: Spanish animal/category dictionary mapping to valid sounds (noun, verb, common forms)
+- `main()`: Main game loop
+- Label-based selection with a simple reinforcement queue
+- Case-insensitive answer checking
 
-## Personalización
+## Customization
 
-Puedes modificar el diccionario `ANIMALES` para:
-- Agregar más animales
-- Cambiar sonidos
-- Añadir nuevas categorías
-- Adaptar para otros idiomas
+You can modify the `ANIMALES` dictionary to:
+- Add more animals
+- Change or expand valid sounds
+- Add new categories
+- Adapt for other languages
 
-## Solución de problemas
+## Troubleshooting
 
-### El comando `animals` no se encuentra
-Si después de la instalación global el comando no funciona:
+### `animals` command not found (global setup)
+If the global command doesn’t work:
 
-1. **Recarga la configuración de zsh**:
+1. Reload your shell config:
    ```bash
    source ~/.zshrc
    ```
 
-2. **Verifica que el comando esté en PATH**:
+2. Verify it’s on PATH:
    ```bash
    which animals
    ```
 
-3. **Verifica que el script sea ejecutable**:
+3. Ensure the wrapper is executable:
    ```bash
    ls -la ~/bin/animals
    ```
 
-4. **Si no funciona, usa el método local**:
+4. If it still fails, run locally:
    ```bash
    python3 animal_sounds.py
    ```
 
-### Error de entrada (EOFError)
-Si ves un error como "EOF when reading a line":
+### EOFError on input
+- Handled gracefully by the app; typically happens without a real TTY.
+- Recommendation: run in a real terminal: `python3 animal_sounds.py`.
 
-- ✅ **Solución automática**: La aplicación maneja este error automáticamente
-- 🔄 **Causa**: Suele ocurrir cuando se ejecuta sin terminal interactiva
-- 💡 **Recomendación**: Ejecuta en una terminal real: `python3 animal_sounds.py`
-
-### Interrupción del programa (Ctrl+C)
-- ✅ **Manejo seguro**: La aplicación se cierra ordenadamente
-- 📊 **Estadísticas**: Muestra las estadísticas finales antes de salir
-- 🔄 **Continuación**: Puedes reanudar en cualquier momento
+### Interrupted (Ctrl+C)
+- Exits cleanly and shows final stats.
