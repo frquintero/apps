@@ -131,8 +131,6 @@ def main():
 
     print("¡Bienvenido a la aplicación de sonidos de animales!")
     print("Escribe 'quit' o 'q' en cualquier momento para salir.\n")
-    print("💡 Modo etiquetas: prioriza no preguntados ('n') y refuerza fallos ('pn').")
-    print("🔄 Refuerzo: preguntas falladas reaparecen cada cierto tiempo.\n")
 
     # Bucle principal del juego
     try:
