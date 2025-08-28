@@ -139,10 +139,10 @@ def main():
             animal, es_refuerzo = seleccionar_siguiente_por_etiquetas(labels, review_queue, num_preguntas)
             sonidos_validos = ANIMALES[animal]
 
-            # Hacer la pregunta al usuario
-            pregunta_tipo = "🔄 Repaso" if es_refuerzo else "❓ Pregunta"
+            # Hacer la pregunta al usuario (sin prefijo para preguntas normales)
+            prefijo = "🔄 Repaso - " if es_refuerzo else ""
             try:
-                respuesta_usuario = input(f"{pregunta_tipo} - ¿Cuál es el sonido que hace el/la {animal}? ").strip()
+                respuesta_usuario = input(f"{prefijo}¿Cuál es el sonido que hace el/la {animal}? ").strip()
             except EOFError:
                 print("\n\n❌ Error: No se pudo leer la entrada del usuario.")
                 print("Esto puede suceder cuando se ejecuta el script sin una terminal interactiva.")
