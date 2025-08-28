@@ -159,6 +159,7 @@ def main():
 
             # Verificar si el usuario quiere salir
             if respuesta_usuario.lower() in ['quit', 'q']:
+                print("\nprograma terminado por el usuario")
                 break
 
             # Incrementar contadores
