@@ -189,8 +189,7 @@ def main():
             print()  # Línea en blanco para mejor legibilidad
 
     except KeyboardInterrupt:
-        print("\n\n👋 ¡Hasta luego! Gracias por usar la aplicación de sonidos de animales.")
-        print("Puedes continuar en otro momento.")
+        print("\nprograma terminado por el usuario")
     except Exception as e:
         print(f"\n\n❌ Error inesperado: {e}")
         print("La aplicación se cerrará por seguridad.")
