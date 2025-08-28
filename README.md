@@ -100,9 +100,10 @@ Puntuación final: 6/7 correctas
 ## Included animals
 
 ### Individual animals
-- perro, gato, vaca, caballo, oveja, cerdo, gallina, gallo, pato, ganso
+- perro, gato, vaca, toro, caballo, mula, burro, oveja, cabra, cerdo
+- gallina, gallo, pollo, pollito, pavo, pato, ganso
 - elefante, león, tigre, oso, mono, águila, búho, rana, serpiente
-- mosquito, abeja, delfín, ballena, cocodrilo, pájaro, cuervo, paloma
+- mosquito, abeja, delfín, ballena, cocodrilo, pájaro, pisco, cuervo, paloma
 - loro, canario, lobo, zorro, conejo, ratón, ardilla, ciervo, jabalí
 - grillo, saltamontes, avispa, mosca, culebra, víbora
 
