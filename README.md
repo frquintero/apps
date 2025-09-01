@@ -65,6 +65,14 @@ Local:
 python3 animal_sounds.py
 ```
 
+Check version:
+
+```bash
+python3 animal_sounds.py --version
+# or
+animals --version
+```
+
 ## Example
 
 The UI is in Spanish by design; here’s a short sample:

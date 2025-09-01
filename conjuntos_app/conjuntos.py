@@ -1,81 +1,40 @@
 #!/usr/bin/env python3
 """
-Aplicación interactiva de línea de comandos para aprender sonidos de animales en español.
-El usuario debe adivinar el sonido que hace cada animal o categoría de animales.
+Aplicación interactiva de línea de comandos para aprender conjuntos de objetos en español.
+El usuario debe adivinar el nombre del conjunto al que pertenece cada grupo de objetos.
 """
 
 import random  # Para selección aleatoria controlada
 import sys     # Para manejar la salida del programa si es necesario
 import os      # Para limpiar la pantalla del terminal y manejar archivos
+import json    # Para cargar los datos desde conjuntos.txt
 # sin dependencias externas
 
 # Versión de la aplicación
 __version__ = "0.1.0"
 
-# Diccionario de animales/categorías y sus sonidos en español
-# Incluye sustantivo, verbo infinitivo y forma coloquial (3ª persona singular)
-ANIMALES = {
-    # Animales individuales
-    "perro": ["ladrido", "ladrar", "ladra"],
-    "gato": ["maullido", "maullar", "maúlla"],
-    "vaca": ["mugido", "mugir", "muge"],
-    "toro": ["bramido", "bramar", "brama"],
-    "caballo": ["relincho", "relinchar", "relincha"],
-    "mula": ["rebuzno", "rebuznar", "rebuzna"],
-    "burro": ["rebuzno", "rebuznar", "rebuzna"],
-    "oveja": ["balido", "balir", "bala"],
-    "cabra": ["balido", "balir", "bala"],
-    "cerdo": ["gruñido", "gruñir", "gruñe"],
-    "gallina": ["cacareo", "cacarear", "cacarea"],
-    "gallo": ["canto", "cantar", "canta"],
-    "pollito": ["pío", "piar", "pía"],
-    "pavo": ["gorgoteo", "gorgotear", "gorgotea"],
-    "pato": ["graznido", "graznar", "grazna"],
-    "ganso": ["graznido", "graznar", "grazna"],
-    "elefante": ["barrito", "barritar", "barrita"],
-    "león": ["rugido", "rugir", "ruge"],
-    "tigre": ["rugido", "rugir", "ruge"],
-    "oso": ["gruñido", "gruñir", "gruñe"],
-    "mono": ["chillido", "chillar", "chilla"],
-    "águila": ["chillido", "chillar", "chilla"],
-    "búho": ["ululato", "ulular", "ulula"],
-    "rana": ["croar", "croar", "croa"],
-    "serpiente": ["siseo", "sisear", "sisea"],
-    "mosquito": ["zumbido", "zumbar", "zumba"],
-    "abeja": ["zumbido", "zumbar", "zumba"],
-    "delfín": ["silbido", "silbar", "silba"],
-    "ballena": ["canto", "cantar", "canta"],
-    "cocodrilo": ["gruñido", "gruñir", "gruñe"],
-    "pájaro": ["canto", "cantar", "canta"],
-    "cuervo": ["graznido", "graznar", "grazna"],
-    "paloma": ["arrullo", "arrullar", "arrulla"],
-    "loro": ["parloteo", "parlotear", "parlotea"],
-    "canario": ["trino", "trinar", "trina"],
-    "lobo": ["aullido", "aullar", "aúlla"],
-    "zorro": ["ladrido", "ladrar", "ladra"],
-    "conejo": ["chillido", "chillar", "chilla"],
-    "ratón": ["chillido", "chillar", "chilla"],
-    "ardilla": ["chillido", "chillar", "chilla"],
-    "ciervo": ["bramido", "bramar", "brama"],
-    "jabalí": ["gruñido", "gruñir", "gruñe"],
-    "grillo": ["chirrido", "chirriar", "chirría"],
-    "saltamontes": ["chirrido", "chirriar", "chirría"],
-    "avispa": ["zumbido", "zumbar", "zumba"],
-    "mosca": ["zumbido", "zumbar", "zumba"],
-    "culebra": ["siseo", "sisear", "sisea"],
-    "víbora": ["siseo", "sisear", "sisea"],
-    # Categorías agrupadas por sonidos similares
-    "insectos voladores": ["zumbido", "zumbar", "zumba"],
-    "aves pequeñas": ["trino", "trinar", "trina"],
-    "felinos grandes": ["rugido", "rugir", "ruge"],
-    "reptiles": ["siseo", "sisear", "sisea"],
-    "mamíferos pequeños": ["chillido", "chillar", "chilla"],
-    "aves acuáticas": ["graznido", "graznar", "grazna"],
-    "insectos": ["chirrido", "chirriar", "chirría"],
-    "mamíferos grandes": ["gruñido", "gruñir", "gruñe"],
-}
+# Diccionario de objetos y sus conjuntos en español
+# Se carga desde conjuntos.txt
+CONJUNTOS = {}
 
-# (SRS/persistencia eliminados para un flujo simple por etiquetas)
+def cargar_conjuntos():
+    """Carga los pares objeto:conjunto desde conjuntos.txt"""
+    global CONJUNTOS
+    try:
+        with open('conjuntos.txt', 'r', encoding='utf-8') as f:
+            CONJUNTOS = json.load(f)
+        # Convertir a formato compatible con animal_sounds.py (lista de un elemento)
+        for objeto, conjunto in CONJUNTOS.items():
+            CONJUNTOS[objeto] = [conjunto]
+    except FileNotFoundError:
+        print("❌ Error: No se encontró el archivo conjuntos.txt")
+        sys.exit(1)
+    except json.JSONDecodeError:
+        print("❌ Error: El archivo conjuntos.txt no tiene formato JSON válido")
+        sys.exit(1)
+    except Exception as e:
+        print(f"❌ Error al cargar conjuntos.txt: {e}")
+        sys.exit(1)
 
 REVIEW_EVERY = 4  # cada cuántas preguntas lanzar una de refuerzo si hay
 
@@ -107,7 +66,7 @@ def seleccionar_siguiente_por_etiquetas(labels, review_queue, num_preguntas):
         return review_queue[0], True
 
     # Fallback
-    return random.choice(list(labels.keys() or ANIMALES.keys())), False
+    return random.choice(list(labels.keys() or CONJUNTOS.keys())), False
 
 
 def main():
@@ -118,13 +77,21 @@ def main():
     if any(arg in ("--version", "-V") for arg in sys.argv[1:]):
         print(__version__)
         return
+
+    # Cargar los conjuntos desde el archivo
+    cargar_conjuntos()
+
+    if not CONJUNTOS:
+        print("❌ Error: No se encontraron conjuntos válidos en el archivo")
+        sys.exit(1)
+
     # Estado de sesión (etiquetas + refuerzo)
     intentos_totales = 0
     respuestas_correctas = 0
     num_preguntas = 0
-    labels = {animal: 'n' for animal in ANIMALES.keys()}
-    asked_set = set()  # animales preguntados al menos una vez en la sesión
-    review_queue = []  # cola de animales con etiqueta 'pn'
+    labels = {objeto: 'n' for objeto in CONJUNTOS.keys()}
+    asked_set = set()  # objetos preguntados al menos una vez en la sesión
+    review_queue = []  # cola de objetos con etiqueta 'pn'
 
     # Configurar codificación robusta para I/O de consola
     try:
@@ -136,24 +103,24 @@ def main():
     # Limpiar la pantalla del terminal antes de mostrar el mensaje de bienvenida
     os.system('clear')
 
-    print("¡Bienvenido a la aplicación de sonidos de animales!")
+    print("¡Bienvenido a la aplicación de conjuntos de objetos!")
     print("Escribe 'quit' o 'q' en cualquier momento para salir.\n")
 
     # Bucle principal del juego
     try:
         while True:
             # Seleccionar siguiente por etiquetas + refuerzo
-            animal, es_refuerzo = seleccionar_siguiente_por_etiquetas(labels, review_queue, num_preguntas)
-            sonidos_validos = ANIMALES[animal]
+            objeto, es_refuerzo = seleccionar_siguiente_por_etiquetas(labels, review_queue, num_preguntas)
+            conjuntos_validos = CONJUNTOS[objeto]
 
             # Hacer la pregunta al usuario (sin prefijo para preguntas normales)
             prefijo = "🔄 Repaso - " if es_refuerzo else ""
             try:
-                respuesta_usuario = input(f"{prefijo}¿Cuál es el sonido que hace el/la {animal}? ").strip()
+                respuesta_usuario = input(f"{prefijo}¿Cuál es el conjunto formado por {objeto}? ").strip()
             except EOFError:
                 print("\n\n❌ Error: No se pudo leer la entrada del usuario.")
                 print("Esto puede suceder cuando se ejecuta el script sin una terminal interactiva.")
-                print("Intenta ejecutar: python3 animal_sounds.py")
+                print("Intenta ejecutar: python3 conjuntos.py")
                 break
             except UnicodeError:
                 # Fallback de lectura robusta si la terminal no es UTF-8
@@ -172,27 +139,27 @@ def main():
             # Incrementar contadores
             intentos_totales += 1
             num_preguntas += 1
-            asked_set.add(animal)
+            asked_set.add(objeto)
 
             # Verificar la respuesta (ignorando mayúsculas/minúsculas y espacios)
-            # Comprobar si la respuesta está en la lista de sonidos válidos
-            respuesta_correcta = any(respuesta_usuario.lower() == sonido.lower() for sonido in sonidos_validos)
+            # Comprobar si la respuesta está en la lista de conjuntos válidos
+            respuesta_correcta = any(respuesta_usuario.lower() == conjunto.lower() for conjunto in conjuntos_validos)
 
             # Actualizar etiquetas y refuerzo
             if respuesta_correcta:
                 print("¡Correcto! ✅")
                 respuestas_correctas += 1
-                labels[animal] = 'p'
-                if es_refuerzo and review_queue and review_queue[0] == animal:
+                labels[objeto] = 'p'
+                if es_refuerzo and review_queue and review_queue[0] == objeto:
                     review_queue.pop(0)
             else:
                 # Mostrar todas las opciones válidas
-                opciones = " o ".join(f"'{sonido}'" for sonido in sonidos_validos)
+                opciones = " o ".join(f"'{conjunto}'" for conjunto in conjuntos_validos)
                 print(f"Incorrecto – las respuestas correctas son {opciones}")
-                labels[animal] = 'pn'
-                if animal not in review_queue:
-                    review_queue.append(animal)
-                    print(f"📝 {animal} agregado a refuerzo.")
+                labels[objeto] = 'pn'
+                if objeto not in review_queue:
+                    review_queue.append(objeto)
+                    print(f"📝 {objeto} agregado a refuerzo.")
 
             print()  # Línea en blanco para mejor legibilidad
 
@@ -206,8 +173,8 @@ def main():
         if intentos_totales > 0:
             print(f"\n📊 Estadísticas de la sesión:")
             preguntados = len(asked_set)
-            total = len(ANIMALES)
-            print(f"• Animales preguntados {preguntados} de {total}")
+            total = len(CONJUNTOS)
+            print(f"• Objetos preguntados {preguntados} de {total}")
             print(f"• En refuerzo: {len(review_queue)}")
             print(f"Puntuación final: {respuestas_correctas}/{intentos_totales} correctas")
 
