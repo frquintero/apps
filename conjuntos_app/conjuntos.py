@@ -18,26 +18,25 @@ __version__ = "0.1.0"
 CONJUNTOS = {}
 
 def cargar_conjuntos():
-    """Carga los pares objeto:conjunto desde conjuntos.txt"""
+    """Carga los pares objeto:conjunto desde conjuntos_new.json"""
     global CONJUNTOS
     try:
         # Cargar el archivo desde el directorio del script para permitir
         # ejecuciones desde cualquier cwd (p. ej. comando global 'conjuntos')
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        path = os.path.join(script_dir, 'conjuntos.txt')
+        path = os.path.join(script_dir, 'conjuntos_new.json')
         with open(path, 'r', encoding='utf-8') as f:
             CONJUNTOS = json.load(f)
-        # Convertir a formato compatible con animal_sounds.py (lista de un elemento)
-        for objeto, conjunto in CONJUNTOS.items():
-            CONJUNTOS[objeto] = [conjunto]
+        # El archivo ya está en formato objeto: [lista de respuestas válidas]
+        # No necesita conversión adicional
     except FileNotFoundError:
-        print(f"❌ Error: No se encontró el archivo conjuntos.txt en {path}")
+        print(f"❌ Error: No se encontró el archivo conjuntos_new.json en {path}")
         sys.exit(1)
     except json.JSONDecodeError:
-        print(f"❌ Error: El archivo conjuntos.txt en {path} no tiene formato JSON válido")
+        print(f"❌ Error: El archivo conjuntos_new.json en {path} no tiene formato JSON válido")
         sys.exit(1)
     except Exception as e:
-        print(f"❌ Error al cargar conjuntos.txt: {e}")
+        print(f"❌ Error al cargar conjuntos_new.json: {e}")
         sys.exit(1)
 
 REVIEW_EVERY = 4  # cada cuántas preguntas lanzar una de refuerzo si hay

@@ -45,7 +45,7 @@ Esta aplicación te ayuda a practicar los nombres de conjuntos de objetos en esp
 
 ## Instalación
 
-1. Clona o descarga `conjuntos.py` y `conjuntos.txt`.
+1. Clona o descarga `conjuntos.py` y `conjuntos_new.json`.
 2. Asegúrate de que Python 3 esté instalado.
 
 ### Ejecución
@@ -106,14 +106,14 @@ Puntuación final: 6/7 correctas
 
 ## Estructura del código
 
-- `CONJUNTOS`: Diccionario español objeto→conjunto cargado desde `conjuntos.txt`
+- `CONJUNTOS`: Diccionario español objeto→conjunto cargado desde `conjuntos_new.json`
 - `main()`: Bucle principal del juego
 - Selección basada en etiquetas con una cola simple de refuerzo
 - Verificación de respuestas insensible a mayúsculas/minúsculas
 
 ## Personalización
 
-Puedes modificar el archivo `conjuntos.txt` para:
+Puedes modificar el archivo `conjuntos_new.json` para:
 - Añadir más objetos y conjuntos
 - Cambiar o expandir conjuntos válidos
 - Adaptar para otros idiomas
