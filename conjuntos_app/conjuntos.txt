@@ -63,7 +63,6 @@
   "soldados": "pelotón",
   "toros": "manada",
   "vacas": "rebaño",
-  "vajilla": "juego",
   "velas": "arreglo",
   "vinos": "bodega"
 }
