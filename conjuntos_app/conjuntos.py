@@ -21,16 +21,20 @@ def cargar_conjuntos():
     """Carga los pares objeto:conjunto desde conjuntos.txt"""
     global CONJUNTOS
     try:
-        with open('conjuntos.txt', 'r', encoding='utf-8') as f:
+        # Cargar el archivo desde el directorio del script para permitir
+        # ejecuciones desde cualquier cwd (p. ej. comando global 'conjuntos')
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        path = os.path.join(script_dir, 'conjuntos.txt')
+        with open(path, 'r', encoding='utf-8') as f:
             CONJUNTOS = json.load(f)
         # Convertir a formato compatible con animal_sounds.py (lista de un elemento)
         for objeto, conjunto in CONJUNTOS.items():
             CONJUNTOS[objeto] = [conjunto]
     except FileNotFoundError:
-        print("❌ Error: No se encontró el archivo conjuntos.txt")
+        print(f"❌ Error: No se encontró el archivo conjuntos.txt en {path}")
         sys.exit(1)
     except json.JSONDecodeError:
-        print("❌ Error: El archivo conjuntos.txt no tiene formato JSON válido")
+        print(f"❌ Error: El archivo conjuntos.txt en {path} no tiene formato JSON válido")
         sys.exit(1)
     except Exception as e:
         print(f"❌ Error al cargar conjuntos.txt: {e}")
