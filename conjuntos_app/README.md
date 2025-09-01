@@ -121,8 +121,6 @@ Puedes modificar el archivo `conjuntos_new.json` para:
 ## Solución de problemas
 
 ### EOFError en entrada
-- Manejado graciosamente por la aplicación; típicamente ocurre sin una TTY real.
-- Recomendación: ejecutar en una terminal real: `python3 conjuntos.py`.
+ Recomendación: ejecutar en una terminal real: `python3 apps/conjuntos_app/conjuntos.py`.
 
 ### Interrumpido (Ctrl+C)
-- Sale limpiamente y muestra estadísticas finales.

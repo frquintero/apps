@@ -62,13 +62,13 @@ animals
 Local:
 
 ```bash
-python3 animal_sounds.py
+python3 apps/animals_sounds/animal_sounds.py
 ```
 
 Check version:
 
 ```bash
-python3 animal_sounds.py --version
+python3 apps/animals_sounds/animal_sounds.py --version
 # or
 animals --version
 ```
@@ -162,7 +162,7 @@ If the global command doesn’t work:
 
 4. If it still fails, run locally:
    ```bash
-   python3 animal_sounds.py
+   python3 apps/animals_sounds/animal_sounds.py
    ```
 
 ### EOFError on input
