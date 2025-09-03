@@ -7,6 +7,9 @@
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 
+# Store the current working directory (where the user ran the command)
+ORIGINAL_CWD="$(pwd)"
+
 # Navigate to the project directory
 cd "$SCRIPT_DIR"
 
@@ -24,5 +27,5 @@ if [ -z "$GROQ_API_KEY" ]; then
     echo ""
 fi
 
-# Activate virtual environment and run paep_engine.py
-source venv/bin/activate && python paep_engine.py "$@"
+# Activate virtual environment and run paep_engine.py with original working directory
+source venv/bin/activate && PAEP_OUTPUT_DIR="$ORIGINAL_CWD" python paep_engine.py "$@"

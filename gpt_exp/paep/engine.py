@@ -1,6 +1,7 @@
 """Core PAEP engine orchestration: manages phases, state, and persistence."""
 from datetime import datetime
 import json
+import os
 from typing import Dict, Any, Optional
 
 from .prompting import build_prompt, extract_content_from_tags, build_context_string
@@ -123,8 +124,13 @@ class PAEPEngine:
 
     def save_results(self, results: Dict[str, Any]) -> None:
         filename = f"paep_resultado_{self.session_id}.md"
+        
+        # Use PAEP_OUTPUT_DIR if set (from global command), otherwise current directory
+        output_dir = os.environ.get('PAEP_OUTPUT_DIR', '.')
+        filepath = os.path.join(output_dir, filename)
+        
         try:
-            with open(filename, 'w', encoding='utf-8') as f:
+            with open(filepath, 'w', encoding='utf-8') as f:
                 # Header
                 f.write(f"# Análisis PAEP-R: {results.get('user_question', 'N/A')}\n\n")
                 f.write(f"**Session ID:** {results.get('session_id', 'N/A')}\n")
@@ -167,6 +173,6 @@ class PAEPEngine:
                         f.write(f"{phase_data.get('output', 'Sin contenido')}\n\n")
                         f.write("---\n\n")
                 
-            print(f"💾 Resultados guardados en: {filename}")
+            print(f"💾 Resultados guardados en: {os.path.abspath(filepath)}")
         except Exception as e:
             print(f"⚠️  Error guardando resultados: {e}")

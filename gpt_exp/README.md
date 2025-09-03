@@ -59,6 +59,8 @@ paep --debug           # Modo debug
 paep --interactive     # Modo interactivo
 ```
 
+**📁 El archivo de resultados se guardará en el directorio desde donde ejecutes el comando.**
+
 ### Comando Local
 **Importante**: Siempre activar el entorno virtual antes de usar el sistema:
 ```bash
