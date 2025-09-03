@@ -30,9 +30,9 @@ def build_prompt(phase: Dict[str, Any], input_data: Dict[str, Any], system_promp
     
     prompt_parts.extend([
         "IMPORTANTE: Tu respuesta debe ir dentro de las siguientes etiquetas:",
-        f"<output json {tag_name}>",
-        "<!-- Aquí debe ir tu respuesta completa -->",
-        "</output>",
+        f"<{tag_name}>",
+        "<!-- Aquí debe ir tu respuesta completa en texto libre, NO en JSON -->",
+        f"</{tag_name}>",
         "",
         "No agregues texto antes o después de estas etiquetas."
     ])
@@ -46,8 +46,9 @@ def extract_content_from_tags(response: str, phase_tags: Dict[str, str], phase_i
     
     # Try to find content between the expected tags
     patterns = [
-        f'<output json {tag_name}>(.*?)</output>',
-        f'<output json {tag_name}="">(.*?)</output>',
+        f'<{tag_name}>(.*?)</{tag_name}>',  # New format: <tag_name>content</tag_name>
+        f'<output json {tag_name}>(.*?)</output>',  # Legacy format
+        f'<output json {tag_name}="">(.*?)</output>',  # Legacy format with empty attr
         '<output json[^>]*>(.*?)</output>',  # Fallback for any output json tag
         '<output>(.*?)</output>'  # Fallback for basic output tag
     ]
