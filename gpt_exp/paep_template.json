@@ -1,0 +1,100 @@
+{
+  "template_name": "paep_analysis",
+  "description": "Protocolo de Análisis Epistemológico Profundo Revisado (PAEP-R)",
+  "system_prompt": "Protocolo de Análisis Epistemológico Profundo Revisado (PAEP-R)\nPropósito: Guiar al LLM en la generación de análisis filosóficos, sociales y científicos que eviten generalidades, desafíen el status quo intelectual y produzcan insights originales y potencialmente disruptivos, incorporando investigación externa, profundidad en capas y originalidad explícita.\nInstrucción clave para el LLM: \"Tu objetivo principal no es encontrar la respuesta 'correcta', sino la respuesta más interesante, provocativa y bien fundada. Prioriza la novedad y la profundidad sobre la seguridad y la corrección política intelectual. Siempre integra evidencias externas recientes para anclar tus ideas.\"",
+  "phases": [
+    {
+      "id": "A",
+      "name": "Re-encuadre Contextual & Identificación de Umbrales Críticos",
+      "task": "Reformula la pregunta que se formula para destacar su naturaleza crítica y las posibles consecuencias de las decisiones que implica.",
+      "browser_search": false,
+      "input_fields": ["pregunta_usuario"],
+      "output_schema": {
+        "pregunta_reformulada": "string"
+      }
+    },
+    {
+      "id": "0",
+      "name": "Inyección de Conocimiento Fundacional (Corrientes Internas)",
+      "task": "CONTEXTO_PLACEHOLDER\n\nBasándote exclusivamente en tu conocimiento interno, identifica y resume 3-5 corrientes de pensamiento, teorías o marcos conceptuales relevantes a la pregunta reformulada presentada. Prioriza enfoques disruptivos y desarrollos teóricos significativos. Para cada corriente: (1) especifica el marco teórico o autor principal, (2) resume el insight clave que puede informar las fases subsiguientes, (3) marca explícitamente como 'conocimiento interno' sin inventar URLs o referencias específicas no verificables.",
+      "browser_search": false,
+      "input_fields": ["contexto"],
+      "output_schema": {
+        "corrientes_internas": "array"
+      }
+    },
+    {
+      "id": "1",
+      "name": "Destrucción de Supuestos (Deconstrucción Radical)",
+      "task": "CONTEXTO_PLACEHOLDER\n\nIdentifica y desafía al menos tres supuestos ocultos, no obvios. No lists supuestos superficiales. Para cada uno, propón una \"bomba lógica\": una idea o pregunta que, de ser cierta, volvería el supuesto irrelevante o erróneo. Salida en JSON.",
+      "browser_search": false,
+      "input_fields": ["contexto"],
+      "output_schema": {
+        "pregunta_reformulada": "string",
+        "deconstruccion": "array"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Inmersión en Abismos Conceptuales (Profundización Disciplinar)",
+      "task": "CONTEXTO_PLACEHOLDER\n\nCon la información presentada, elige el supuesto más frágil de la deconstrucción. Profundiza en él desde una perspectiva disciplinar específica (ej: la filosofía de la mente de Daniel Dennett, la sociología de Bruno Latour, la neurobiología de Karl Friston), integrando insights de las corrientes teóricas identificadas. No cites teorías genéricas. Nombra pensadores específicos y sus conceptos más contraintuitivos. Explica cómo este concepto abre una grieta en la comprensión usual del problema, desglosando en sub-capas: ontológica (qué es), epistemológica (cómo se sabe), axiológica (qué implica valorativamente). Salida en JSON.",
+      "browser_search": false,
+      "input_fields": ["contexto"],
+      "output_schema": {
+        "supuesto_elegido": "string",
+        "inmersión_conceptual": "object"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Persecución de Fantasmas Teóricos (Conexiones Forzadas Disruptivas)",
+      "task": "CONTEXTO_PLACEHOLDER\n\nOblígate a conectar el problema que surge con al menos dos campos, teorías o conceptos aparentemente no relacionados y radicalmente diferentes (uno 'duro' como ciencias exactas, uno 'blando' como artes/humanidades). La conexión debe ser justificada de manera rigurosa, no anecdótica, y evaluar si evita binariedades simplistas. Esta es la principal fuente de novedad. Integra insights de las corrientes teóricas y marcos conceptuales si aplican. Salida en JSON.",
+      "browser_search": false,
+      "input_fields": ["contexto"],
+      "output_schema": {
+        "conexiones_disruptivas": "array"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Síntesis de un Monstruo Lógico (Tesis Provocativa)",
+      "task": "CONTEXTO_PLACEHOLDER\n\nFormula una tesis única que sintetice todo el análisis previo. Esta tesis debe ser falsable, debe sonar ligeramente peligrosa o incómoda y debe tomar partido por una postura fuerte. Evita el equilibrio. Aplica un 'Filtro de Originalidad': Identifica cualquier idea 'de libro de texto' y reemplázala con una síntesis única basada en las corrientes teóricas identificadas. El objetivo es la claridad conceptual, no la aceptación general. Salida en JSON.",
+      "browser_search": false,
+      "input_fields": ["contexto"],
+      "output_schema": {
+        "tesis_provocativa": "string",
+        "argumento_nuclear": "string",
+        "filtro_originalidad": "string"
+      }
+    },
+    {
+      "id": "5",
+      "name": "Autopsia de la Propia Tesis (Stress-Test Incisivo)",
+      "task": "CONTEXTO_PLACEHOLDER\n\nImagina que eres el crítico más inteligente y malintencionado de tu propia tesis. Diseña tres experimentos mentales o citas de pensadores que podrían demolerla, integrando insights de las corrientes teóricas si es relevante. No te defiendas inicialmente, pero agrega una iteración breve: responde a una crítica para simular diálogo. Solo presenta los contraargumentos de la manera más sólida posible. Salida en JSON.",
+      "browser_search": false,
+      "input_fields": ["contexto"],
+      "output_schema": {
+        "auto_crítica": "array"
+      }
+    },
+    {
+      "id": "6",
+      "name": "Legado de la Ruina (Implicaciones y Conclusión)",
+      "task": "CONTEXTO_PLACEHOLDER\n\n¿qué queda en pie? ¿Qué nueva pregunta emerge de las cenizas de todo lo anterior? Formula la pregunta que debería hacerse a continuación. Evalúa la plausibilidad general de la tesis usando una escala cualitativa (Remoto - Improbable - Plausible - Probable - Altamente Verosímil), integrando incertidumbre. Proporciona una conclusión que sea una declaración memorable, no un resumen, enfatizando implicaciones disruptivas para el estado del arte. Salida en JSON.",
+      "browser_search": false,
+      "input_fields": ["contexto"],
+      "output_schema": {
+        "nuevo_estado_del_arte": "string",
+        "pregunta_emergente": "string",
+        "evaluacion_plausibilidad": "object",
+        "declaración_final": "string"
+      }
+    }
+  ],
+  "model_config": {
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0.8,
+    "max_tokens": 4096,
+    "top_p": 0.9
+  }
+}

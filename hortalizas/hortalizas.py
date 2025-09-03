@@ -88,13 +88,23 @@ def hacer_pregunta_clasificacion(hortaliza_name, es_refuerzo):
     except KeyboardInterrupt:
         return None
 
-def hacer_pregunta_parte_comestible(hortaliza_name, es_refuerzo):
+def hacer_pregunta_parte_comestible(hortaliza_name, es_refuerzo, clasificacion=None):
     """Hace la pregunta sobre la parte comestible de la hortaliza"""
     prefijo = "🔄 Repaso - " if es_refuerzo else ""
     
+    # Si no sabemos la clasificación, la obtenemos del JSON
+    if clasificacion is None:
+        clasificacion = HORTALIZAS[hortaliza_name]['classification']
+    
     # Opciones basadas en las partes comestibles del JSON
-    opciones = ['raíz', 'tubérculo', 'bulbo', 'tallo', 'hoja', 'brote', 'flor', 
-                'fruto', 'vaina', 'semilla', 'hierba', 'hongo']
+    if clasificacion == 'verdura':
+        # Solo opciones que usan las verduras (sin semilla)
+        opciones = ['raíz', 'tubérculo', 'bulbo', 'tallo', 'hoja', 'flor', 
+                    'fruto', 'vaina', 'rizoma', 'hierba', 'hongo']
+    else:
+        # Todas las opciones (para legumbres o cuando no sabemos la clasificación)
+        opciones = ['raíz', 'tubérculo', 'bulbo', 'tallo', 'hoja', 'flor', 
+                    'fruto', 'vaina', 'semilla', 'rizoma', 'hierba', 'hongo']
     
     questions = [
         inquirer.List('parte_comestible',
@@ -206,8 +216,15 @@ def main():
                 if hortaliza_name not in review_queue:
                     review_queue.append(hortaliza_name)
                     print(f"📝 {hortaliza_name} agregado a refuerzo.")
+            elif respuesta_clasificacion == 'legumbre':
+                # Si es legumbre y está correcto, no preguntar parte comestible (siempre es semilla)
+                print("¡Correcto! ✅ (Las legumbres siempre son semillas)")
+                respuestas_correctas += 1
+                labels[hortaliza_name] = 'p'
+                if es_refuerzo and review_queue and review_queue[0] == hortaliza_name:
+                    review_queue.pop(0)
             else:
-                # Si la clasificación es correcta, hacer la segunda pregunta
+                # Si la clasificación es correcta y es verdura, hacer la segunda pregunta
                 respuesta_parte = hacer_pregunta_parte_comestible(hortaliza_name, False)
                 if respuesta_parte is None:
                     break
