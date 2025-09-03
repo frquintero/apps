@@ -43,8 +43,23 @@ pip install -r requirements.txt
 export GROQ_API_KEY="tu_api_key_aqui"
 ```
 
+4. **(Opcional)** Crear comando global:
+```bash
+chmod +x paep-cli
+ln -sf "$(pwd)/paep-cli" ~/.local/bin/paep
+```
+
 ## 💻 Uso
 
+### Comando Global (Recomendado)
+Si instalaste el comando global, puedes usar `paep` desde cualquier directorio:
+```bash
+paep                    # Modo básico
+paep --debug           # Modo debug
+paep --interactive     # Modo interactivo
+```
+
+### Comando Local
 **Importante**: Siempre activar el entorno virtual antes de usar el sistema:
 ```bash
 source venv/bin/activate
