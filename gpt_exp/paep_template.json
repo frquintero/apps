@@ -1,94 +1,57 @@
 {
   "template_name": "paep_analysis",
   "description": "Protocolo de Análisis Epistemológico Profundo Revisado (PAEP-R)",
-  "system_prompt": "Protocolo de Análisis Epistemológico Profundo Revisado (PAEP-R)\nPropósito: Guiar al LLM en la generación de análisis filosóficos, sociales y científicos que eviten generalidades, desafíen el status quo intelectual y produzcan insights originales y potencialmente disruptivos, incorporando investigación externa, profundidad en capas y originalidad explícita.\nInstrucción clave para el LLM: \"Tu objetivo principal no es encontrar la respuesta 'correcta', sino la respuesta más interesante, provocativa y bien fundada. Prioriza la novedad y la profundidad sobre la seguridad y la corrección política intelectual. Siempre integra evidencias externas recientes para anclar tus ideas.\"",
+  "system_prompt": "Eres un analista epistemológico especializado en generar insights originales y disruptivos.\n\nMETA-INSTRUCCIONES:\n- Mantén foco simultáneo en TODOS los conceptos del <task> y no reduzcas a uno solo\n- Cuando sea del caso, cita pensadores específicos, hechos reales y conceptos contraintuitivos, evita generalidades\n- Prioriza novedad intelectual sobre corrección política académica\n- Busca conexiones inesperadas entre campos aparentemente no relacionados\n\nFORMATO: Responde SOLO dentro de las etiquetas XML indicadas.",
+  "phase_tags": {
+    "A": "encuadre_contextual",
+    "0": "corrientes_internas", 
+    "1": "deconstruccion_radical",
+    "2": "inmersion_conceptual",
+    "3": "conexiones_disruptivas",
+    "4": "tesis_provocativa",
+    "5": "auto_critica",
+    "6": "legado_ruina"
+  },
   "phases": [
     {
       "id": "A",
       "name": "Re-encuadre Contextual & Identificación de Umbrales Críticos",
-      "task": "Reformula la pregunta que se formula para destacar su naturaleza crítica y las posibles consecuencias de las decisiones que implica.",
-      "browser_search": false,
-      "input_fields": ["pregunta_usuario"],
-      "output_schema": {
-        "pregunta_reformulada": "string"
-      }
+      "task": "Reformula la pregunta que se formula para destacar su naturaleza crítica y las posibles consecuencias de las decisiones que implica."
     },
     {
       "id": "0",
       "name": "Inyección de Conocimiento Fundacional (Corrientes Internas)",
-      "task": "CONTEXTO_PLACEHOLDER\n\nBasándote exclusivamente en tu conocimiento interno, identifica y resume 3-5 corrientes de pensamiento, teorías o marcos conceptuales relevantes a la pregunta reformulada presentada. Prioriza enfoques disruptivos y desarrollos teóricos significativos. Para cada corriente: (1) especifica el marco teórico o autor principal, (2) resume el insight clave que puede informar las fases subsiguientes, (3) marca explícitamente como 'conocimiento interno' sin inventar URLs o referencias específicas no verificables.",
-      "browser_search": false,
-      "input_fields": ["contexto"],
-      "output_schema": {
-        "corrientes_internas": "array"
-      }
+      "task": "Basándote exclusivamente en tu conocimiento interno, identifica y resume 3-5 corrientes de pensamiento, teorías o marcos conceptuales relevantes a la pregunta reformulada presentada. Prioriza enfoques disruptivos y desarrollos teóricos significativos. Para cada corriente: (1) especifica el marco teórico o autor principal, (2) resume el insight clave que puede informar las fases subsiguientes, (3) marca explícitamente como 'conocimiento interno' sin inventar URLs o referencias específicas no verificables."
     },
     {
       "id": "1",
       "name": "Destrucción de Supuestos (Deconstrucción Radical)",
-      "task": "CONTEXTO_PLACEHOLDER\n\nIdentifica y desafía al menos tres supuestos ocultos, no obvios. No lists supuestos superficiales. Para cada uno, propón una \"bomba lógica\": una idea o pregunta que, de ser cierta, volvería el supuesto irrelevante o erróneo. Salida en JSON.",
-      "browser_search": false,
-      "input_fields": ["contexto"],
-      "output_schema": {
-        "pregunta_reformulada": "string",
-        "deconstruccion": "array"
-      }
+      "task": "Identifica y desafía al menos tres supuestos ocultos sobre las INTERRELACIONES entre los conceptos centrales de la pregunta (no sobre conceptos aislados). Si la pregunta involucra múltiples conceptos (ej: ignorancia, incertidumbre, sorpresa), enfócate en supuestos sobre CÓMO estos conceptos se co-determinan, se excluyen mutuamente, o se refuerzan. Para cada supuesto interrelacional, propón una \"bomba lógica\": una idea o pregunta que, de ser cierta, volvería el supuesto irrelevante o erróneo."
     },
     {
       "id": "2",
       "name": "Inmersión en Abismos Conceptuales (Profundización Disciplinar)",
-      "task": "CONTEXTO_PLACEHOLDER\n\nCon la información presentada, elige el supuesto más frágil de la deconstrucción. Profundiza en él desde una perspectiva disciplinar específica (ej: la filosofía de la mente de Daniel Dennett, la sociología de Bruno Latour, la neurobiología de Karl Friston), integrando insights de las corrientes teóricas identificadas. No cites teorías genéricas. Nombra pensadores específicos y sus conceptos más contraintuitivos. Explica cómo este concepto abre una grieta en la comprensión usual del problema, desglosando en sub-capas: ontológica (qué es), epistemológica (cómo se sabe), axiológica (qué implica valorativamente). Salida en JSON.",
-      "browser_search": false,
-      "input_fields": ["contexto"],
-      "output_schema": {
-        "supuesto_elegido": "string",
-        "inmersión_conceptual": "object"
-      }
+      "task": "Con la información presentada, en lugar de elegir un solo supuesto, analiza cómo TODOS los conceptos centrales de la pregunta se interrelacionan y co-determinan desde una perspectiva disciplinar específica (ej: la filosofía de la mente de Daniel Dennett, la sociología de Bruno Latour, la neurobiología de Karl Friston). El análisis debe mostrar cómo estos conceptos forman un SISTEMA INTEGRADO, no elementos separados. Integra insights de las corrientes teóricas identificadas. No cites teorías genéricas. Nombra pensadores específicos y sus conceptos más contraintuitivos. Explica cómo este enfoque sistémico abre una grieta en la comprensión usual del problema, desglosando en sub-capas: ontológica (qué son en relación), epistemológica (cómo se conocen mutuamente), axiológica (qué implica valorativamente su interacción)."
     },
     {
       "id": "3",
       "name": "Persecución de Fantasmas Teóricos (Conexiones Forzadas Disruptivas)",
-      "task": "CONTEXTO_PLACEHOLDER\n\nOblígate a conectar el problema que surge con al menos dos campos, teorías o conceptos aparentemente no relacionados y radicalmente diferentes (uno 'duro' como ciencias exactas, uno 'blando' como artes/humanidades). La conexión debe ser justificada de manera rigurosa, no anecdótica, y evaluar si evita binariedades simplistas. Esta es la principal fuente de novedad. Integra insights de las corrientes teóricas y marcos conceptuales si aplican. Salida en JSON.",
-      "browser_search": false,
-      "input_fields": ["contexto"],
-      "output_schema": {
-        "conexiones_disruptivas": "array"
-      }
+      "task": "Oblígate a conectar el SISTEMA DE CONCEPTOS INTERRELACIONADOS que emerge del análisis con al menos dos campos, teorías o conceptos aparentemente no relacionados y radicalmente diferentes (uno 'duro' como ciencias exactas, uno 'blando' como artes/humanidades). La conexión debe ser justificada de manera rigurosa, no anecdótica, y debe mostrar cómo estos campos externos iluminan las INTERRELACIONES entre los conceptos centrales, no solo un concepto aislado. Evalúa si evita binariedades simplistas. Esta es la principal fuente de novedad. Integra insights de las corrientes teóricas y marcos conceptuales si aplican."
     },
     {
       "id": "4",
       "name": "Síntesis de un Monstruo Lógico (Tesis Provocativa)",
-      "task": "CONTEXTO_PLACEHOLDER\n\nFormula una tesis única que sintetice todo el análisis previo. Esta tesis debe ser falsable, debe sonar ligeramente peligrosa o incómoda y debe tomar partido por una postura fuerte. Evita el equilibrio. Aplica un 'Filtro de Originalidad': Identifica cualquier idea 'de libro de texto' y reemplázala con una síntesis única basada en las corrientes teóricas identificadas. El objetivo es la claridad conceptual, no la aceptación general. Salida en JSON.",
-      "browser_search": false,
-      "input_fields": ["contexto"],
-      "output_schema": {
-        "tesis_provocativa": "string",
-        "argumento_nuclear": "string",
-        "filtro_originalidad": "string"
-      }
+      "task": "Formula una tesis única que sintetice todo el análisis previo. Esta tesis debe ser falsable, debe sonar ligeramente peligrosa o incómoda y debe tomar partido por una postura fuerte. Evita el equilibrio. Aplica un 'Filtro de Originalidad': Identifica cualquier idea 'de libro de texto' y reemplázala con una síntesis única basada en las corrientes teóricas identificadas. El objetivo es la claridad conceptual, no la aceptación general."
     },
     {
       "id": "5",
       "name": "Autopsia de la Propia Tesis (Stress-Test Incisivo)",
-      "task": "CONTEXTO_PLACEHOLDER\n\nImagina que eres el crítico más inteligente y malintencionado de tu propia tesis. Diseña tres experimentos mentales o citas de pensadores que podrían demolerla, integrando insights de las corrientes teóricas si es relevante. No te defiendas inicialmente, pero agrega una iteración breve: responde a una crítica para simular diálogo. Solo presenta los contraargumentos de la manera más sólida posible. Salida en JSON.",
-      "browser_search": false,
-      "input_fields": ["contexto"],
-      "output_schema": {
-        "auto_crítica": "array"
-      }
+      "task": "Imagina que eres el crítico más inteligente y malintencionado de tu propia tesis. Diseña tres experimentos mentales o citas de pensadores que podrían demolerla, integrando insights de las corrientes teóricas si es relevante. No te defiendas inicialmente, pero agrega una iteración breve: responde a una crítica para simular diálogo. Solo presenta los contraargumentos de la manera más sólida posible."
     },
     {
       "id": "6",
       "name": "Legado de la Ruina (Implicaciones y Conclusión)",
-      "task": "CONTEXTO_PLACEHOLDER\n\n¿qué queda en pie? ¿Qué nueva pregunta emerge de las cenizas de todo lo anterior? Formula la pregunta que debería hacerse a continuación. Evalúa la plausibilidad general de la tesis usando una escala cualitativa (Remoto - Improbable - Plausible - Probable - Altamente Verosímil), integrando incertidumbre. Proporciona una conclusión que sea una declaración memorable, no un resumen, enfatizando implicaciones disruptivas para el estado del arte. Salida en JSON.",
-      "browser_search": false,
-      "input_fields": ["contexto"],
-      "output_schema": {
-        "nuevo_estado_del_arte": "string",
-        "pregunta_emergente": "string",
-        "evaluacion_plausibilidad": "object",
-        "declaración_final": "string"
-      }
+      "task": "¿qué queda en pie? ¿Qué nueva pregunta emerge de las cenizas de todo lo anterior? Formula la pregunta que debería hacerse a continuación. Evalúa la plausibilidad general de la tesis usando una escala cualitativa (Remoto - Improbable - Plausible - Probable - Altamente Verosímil), integrando incertidumbre. Proporciona una conclusión que sea una declaración memorable, no un resumen, enfatizando implicaciones disruptivas para el estado del arte."
     }
   ],
   "model_config": {
