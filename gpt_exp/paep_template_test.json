@@ -1,0 +1,27 @@
+{
+  "template_name": "paep_test_reformulation",
+  "description": "Template de prueba para validar reformulación interactiva - Solo Fase A y Fase 0",
+  "system_prompt": "Eres un analista epistemológico especializado en generar insights originales y disruptivos.\n\nMETA-INSTRUCCIONES:\n- Mantén foco simultáneo en TODOS los conceptos del <task> y no reduzcas a uno solo\n- Cuando sea del caso, cita pensadores específicos, hechos reales y conceptos contraintuitivos, evita generalidades\n- Prioriza novedad intelectual sobre corrección política académica\n- Busca conexiones inesperadas entre campos aparentemente no relacionados\n\nFORMATO: Responde SOLO dentro de las etiquetas XML indicadas.",
+  "phase_tags": {
+    "A": "encuadre_contextual",
+    "0": "corrientes_internas"
+  },
+  "phases": [
+    {
+      "id": "A",
+      "name": "Re-encuadre Contextual & Identificación de Umbrales Críticos",
+      "task": "Reformula la pregunta para que sea clara, sin ambiguedades, lo más específica posible, sin sesgos (pregunta inductora, de presunción, de deseabilidad social, de ambiguedad, de sesgo emocional, de encuadre,etc. ), recogiendo su naturaleza oculta, descubriendo la pregunta que en verdad se debe hacer, con la que se abren las puertas de nuevos conocimientos y formas de ver el mundo, incluyendo las posibles consecuencias de las decisiones que implica."
+    },
+    {
+      "id": "0",
+      "name": "Inyección de Conocimiento Fundacional (Corrientes Internas)",
+      "task": "Basándote exclusivamente en tu conocimiento interno, identifica y resume 3-5 corrientes de pensamiento, teorías o marcos conceptuales relevantes a la pregunta reformulada presentada. Prioriza enfoques disruptivos y desarrollos teóricos significativos. Para cada corriente: (1) especifica el marco teórico o autor principal, (2) resume el insight clave que puede informar las fases subsiguientes, (3) marca explícitamente como 'conocimiento interno' sin inventar URLs o referencias específicas no verificables."
+    }
+  ],
+  "model_config": {
+    "model": "openai/gpt-oss-120b",
+    "temperature": 0.8,
+    "max_tokens": 4096,
+    "top_p": 0.9
+  }
+}

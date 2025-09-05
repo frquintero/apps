@@ -35,10 +35,14 @@ def main():
         help="Solo guardar resultados, no mostrar resumen"
     )
     parser.add_argument(
-        "--debug",
-        "-d",
+        "--auto-approve",
         action="store_true",
-        help="Habilitar modo debug (mostrar prompts y respuestas)"
+        help="Aprobar automáticamente la reformulación de la pregunta sin validación del usuario"
+    )
+    parser.add_argument(
+        "--verbose-llm",
+        action="store_true",
+        help="Mostrar prompts y respuestas completas del LLM para análisis detallado"
     )
 
     args = parser.parse_args()
@@ -49,8 +53,8 @@ def main():
         print("💡 Set it with: export GROQ_API_KEY='your-api-key-here'")
         sys.exit(1)
 
-    llm = LLMClient(api_key=api_key, debug=args.debug)
-    engine = PAEPEngine(llm)
+    llm = LLMClient(api_key=api_key, verbose=args.verbose_llm)
+    engine = PAEPEngine(llm, auto_approve=args.auto_approve, verbose=args.verbose_llm)
 
     # Get question from user if not provided
     question = args.question
@@ -67,10 +71,6 @@ def main():
     template = engine.load_template(args.template)
     if not template:
         sys.exit(1)
-
-    if args.debug:
-        template["debug_mode"] = True
-        print("🔍 Modo debug habilitado")
 
     try:
         results = engine.run_analysis(question, template)

@@ -9,10 +9,13 @@ from .llm_client import LLMClient, LLMError
 
 
 class PAEPEngine:
-    def __init__(self, llm_client: LLMClient):
+    def __init__(self, llm_client: LLMClient, auto_approve: bool = False, verbose: bool = False):
         self.llm = llm_client
         self.phase_outputs: Dict[str, str] = {}  # Changed to store raw content strings
         self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.auto_approve = auto_approve
+        self.verbose = verbose
+        self.original_user_question: str = ""  # Store original question for refinements
 
     def load_template(self, template_path: str) -> Optional[Dict[str, Any]]:
         try:
@@ -31,6 +34,13 @@ class PAEPEngine:
             input_data['pregunta_usuario'] = user_question
         # Para otras fases, no necesitamos input_data específico ya que el contexto se maneja separadamente
         return input_data
+
+    def build_phase_input_for_refinement(self, user_suggestions: str) -> Dict[str, Any]:
+        """Build input data for refinement using original question + user suggestions."""
+        return {
+            'pregunta_usuario': self.original_user_question,
+            'modificaciones_usuario': user_suggestions
+        }
 
     def execute_phase(self, phase: Dict[str, Any], user_question: str, template: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         print(f"\n🔄 Ejecutando Fase {phase['id']}: {phase['name']}")
@@ -62,23 +72,10 @@ class PAEPEngine:
             return None
 
         # Extract content from tags
-        if self.llm.debug:
-            print(f"\n🔧 EXTRAYENDO CONTENIDO DE TAGS - FASE {phase_name}:")
-            print(f"{'='*80}")
-
         content = extract_content_from_tags(raw_response, phase_tags, phase['id'])
         
-        if self.llm.debug:
-            print(f"📦 CONTENIDO EXTRAÍDO:")
-            print(f"{'='*80}")
-            if content:
-                print(content)
-            else:
-                print("❌ NO SE PUDO EXTRAER CONTENIDO DE LAS TAGS")
-            print(f"{'='*80}")
-        
         if not content:
-            print(f"❌ No se pudo extraer contenido de las tags en Fase {phase['id']}")
+            print(f"❌ No se recibió contenido válido del LLM para Fase {phase['id']}")
             print("🔍 Respuesta completa del LLM:")
             print("-" * 40)
             print(raw_response)
@@ -89,7 +86,112 @@ class PAEPEngine:
         self.phase_outputs[phase['id']] = content
 
         print(f"✅ Fase {phase['id']} completada")
+        
+        # Verbose: pause between phases for analysis
+        if self.verbose and phase['id'] != '6':  # Don't pause after the last phase
+            try:
+                input(f"🔍 Presiona ENTER para continuar a la siguiente fase...")
+                print()
+            except KeyboardInterrupt:
+                print("\n⏹️ Análisis interrumpido por el usuario")
+                raise
+        
         return {"processed_output": content, "full_prompt": prompt, "raw_response": raw_response}
+
+    def validate_reformulation(self, reformulation: str, template: Dict[str, Any]) -> str:
+        """Validate and potentially refine the reformulation with user feedback."""
+        # If auto-approve is enabled, skip validation
+        if self.auto_approve:
+            print("🤖 Modo automático: reformulación aprobada automáticamente")
+            return reformulation
+            
+        print(f"\n📝 REFORMULACIÓN PROPUESTA:")
+        print("=" * 60)
+        print(reformulation)
+        print("=" * 60)
+        
+        while True:
+            try:
+                user_response = input("\n❓ ¿Está satisfecho con esta reformulación? (s/n): ").strip().lower()
+                
+                if user_response in ['s', 'si', 'yes', 'y']:
+                    print("✅ Reformulación aprobada")
+                    return reformulation
+                elif user_response in ['n', 'no']:
+                    suggestions = input("\n💡 Por favor, indique qué cambios o enfoques debe tener la reformulación:\n> ").strip()
+                    if suggestions:
+                        print("\n🔄 Refinando reformulación...")
+                        refined_reformulation = self.refine_reformulation(reformulation, suggestions, template)
+                        if refined_reformulation:
+                            reformulation = refined_reformulation
+                            print(f"\n📝 NUEVA REFORMULACIÓN:")
+                            print("=" * 60)
+                            print(reformulation)
+                            print("=" * 60)
+                        else:
+                            print("❌ Error al refinar la reformulación. Manteniendo la anterior.")
+                    else:
+                        print("⚠️ No se proporcionaron sugerencias. Intente nuevamente.")
+                else:
+                    print("⚠️ Por favor responda 's' (sí) o 'n' (no)")
+            except KeyboardInterrupt:
+                print("\n⏹️ Proceso cancelado por el usuario")
+                return reformulation
+            except Exception as e:
+                print(f"❌ Error en la validación: {e}")
+                return reformulation
+
+    def refine_reformulation(self, current_reformulation: str, user_suggestions: str, template: Dict[str, Any]) -> Optional[str]:
+        """Refine the reformulation based on user suggestions using the same logic as Phase A."""
+        try:
+            # Get Phase A definition from template
+            phase_a = None
+            for phase in template.get('phases', []):
+                if phase.get('id') == 'A':
+                    phase_a = phase
+                    break
+            
+            if not phase_a:
+                print("❌ No se encontró la definición de Fase A en el template")
+                return None
+            
+            # Build input data with original question + user suggestions
+            input_data = self.build_phase_input_for_refinement(user_suggestions)
+            
+            # Get phase tags from template
+            phase_tags = template.get('phase_tags', {})
+            
+            # Build prompt using the same logic as Phase A (no context for refinement)
+            from .prompting import build_prompt
+            prompt = build_prompt(phase_a, input_data, "", "", phase_tags)
+            
+            # Send to LLM using same system prompt and config as template
+            system_prompt = template.get('system_prompt', '')
+            raw_response = self.llm.send(prompt, system_prompt=system_prompt, 
+                                       model_config=template.get('model_config'), 
+                                       phase_name="Refinamiento de Reformulación")
+            
+            if not raw_response:
+                print("❌ No se recibió respuesta del LLM para el refinamiento")
+                return None
+            
+            # Extract content using the same extraction logic as other phases
+            from .prompting import extract_content_from_tags
+            content = extract_content_from_tags(raw_response, phase_tags, "A")
+            
+            if not content:
+                print("❌ No se recibió contenido válido del LLM para el refinamiento")
+                print("🔍 Respuesta completa del LLM:")
+                print("-" * 40)
+                print(raw_response)
+                print("-" * 40)
+                return None
+                
+            return content
+            
+        except Exception as e:
+            print(f"❌ Error al refinar reformulación: {e}")
+            return None
 
     def run_analysis(self, user_question: str, template: Dict[str, Any]) -> Dict[str, Any]:
         print(f"🚀 Iniciando análisis PAEP-R")
@@ -97,6 +199,9 @@ class PAEPEngine:
         print(f"❓ Pregunta: {user_question}")
         print(f"🆔 Session ID: {self.session_id}")
         print("=" * 80)
+
+        # Store original question for refinements
+        self.original_user_question = user_question
 
         results = {"session_id": self.session_id, "user_question": user_question, "template_name": template.get('template_name'), "timestamp": datetime.now().isoformat(), "phases": {}}
 
@@ -108,6 +213,13 @@ class PAEPEngine:
 
             input_data = self.build_phase_input(phase, user_question)
             content_output = phase_result['processed_output']
+
+            # Special handling for Phase A - validate reformulation with user
+            if phase['id'] == 'A':
+                validated_reformulation = self.validate_reformulation(content_output, template)
+                # Update the phase output with the validated reformulation
+                content_output = validated_reformulation
+                self.phase_outputs['A'] = validated_reformulation
 
             results['phases'][phase['id']] = {
                 'name': phase['name'],

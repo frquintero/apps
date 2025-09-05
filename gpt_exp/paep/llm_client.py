@@ -8,26 +8,37 @@ class LLMError(Exception):
 
 
 class LLMClient:
-    def __init__(self, api_key: str, default_model: str = "openai/gpt-oss-120b", debug: bool = False):
+    def __init__(self, api_key: str, default_model: str = "openai/gpt-oss-120b", verbose: bool = False):
         self.client = Groq(api_key=api_key)
         self.default_model = default_model
-        self.debug = debug
+        self.verbose = verbose
 
     def send(self, prompt: str, system_prompt: str = "", model_config: Optional[Dict[str, Any]] = None, phase_name: str = "") -> Optional[str]:
         """Send prompt to the LLM and return raw content string (or None on failure)."""
         
-        # Debug: mostrar prompt enviado
-        if self.debug:
+        # Verbose: mostrar prompt completo antes de enviar
+        if self.verbose:
             print(f"\n{'='*80}")
-            print(f"🚀 PROMPT ENVIADO FASE {phase_name}:")
+            print(f"🚀 ENVIANDO AL LLM - {phase_name}")
             print(f"{'='*80}")
             if system_prompt:
-                print("SYSTEM PROMPT:")
+                print("📋 SYSTEM PROMPT:")
+                print("-" * 40)
                 print(system_prompt)
-                print(f"{'-'*40}")
-            print("USER PROMPT:")
+                print("-" * 40)
+            print("📝 USER PROMPT:")
+            print("-" * 40)
             print(prompt)
-            print(f"{'='*80}")
+            print("-" * 40)
+            
+            # Show model config
+            config = model_config or {}
+            print("🤖 CONFIGURACIÓN DEL MODELO:")
+            print(f"   Model: {config.get('model', self.default_model)}")
+            print(f"   Temperature: {config.get('temperature', 0.8)}")
+            print(f"   Max tokens: {config.get('max_tokens', 4096)}")
+            print(f"   Top-p: {config.get('top_p', 0.9)}")
+            print()
         
         try:
             config = model_config or {}
@@ -54,29 +65,21 @@ class LLMClient:
                 reasoning_content = response.choices[0].message.reasoning
                 content = reasoning_content
 
-            # Debug: mostrar respuesta recibida RAW
-            if self.debug:
-                print(f"\n📥 RESPUESTA RAW COMPLETA DEL LLM - FASE {phase_name}:")
-                print(f"{'='*80}")
-                print("🔍 CONTENIDO EXACTO TAL COMO LO ENTREGA EL LLM:")
-                print(f"{'='*80}")
+            # Verbose: mostrar respuesta recibida del LLM
+            if self.verbose:
+                print("⏳ Procesando respuesta del LLM...")
+                print("📥 RESPUESTA COMPLETA DEL LLM:")
+                print("-" * 40)
                 if content:
-                    print(repr(content))  # repr() muestra caracteres especiales, comillas, etc.
-                    print(f"{'='*80}")
-                    print("🔍 CONTENIDO RENDERIZADO:")
-                    print(f"{'='*80}")
                     print(content)
                 else:
                     print("❌ RESPUESTA VACÍA")
-                print(f"{'='*80}")
-                input("🔍 Presiona ESPACIO y luego ENTER para continuar con la siguiente fase...")
+                print("-" * 40)
                 print()
 
             return content
 
         except Exception as e:
-            if self.debug:
+            if self.verbose:
                 print(f"\n❌ ERROR EN FASE {phase_name}: {str(e)}")
-                input("🔍 Presiona ESPACIO y luego ENTER para continuar...")
-            raise LLMError(str(e))
             raise LLMError(str(e))

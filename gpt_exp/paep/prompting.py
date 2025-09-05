@@ -7,10 +7,16 @@ def build_prompt(phase: Dict[str, Any], input_data: Dict[str, Any], system_promp
     """Construct the prompt string for a given phase with accumulated context."""
     prompt_parts = []
     
-    # For Fase A, include the user question before the task
+    # For Fase A, include the user question and modifications (if any)
     if phase.get('id') == 'A':
         user_question = input_data.get('pregunta_usuario', 'N/A')
         prompt_parts.append(f"Pregunta del usuario: {user_question}")
+        
+        # If there are user modifications/suggestions, add them
+        if 'modificaciones_usuario' in input_data:
+            modifications = input_data.get('modificaciones_usuario', '')
+            prompt_parts.append(f"Modificaciones solicitadas por el usuario: {modifications}")
+        
         prompt_parts.append("")
     
     # Add accumulated context if any
@@ -22,46 +28,14 @@ def build_prompt(phase: Dict[str, Any], input_data: Dict[str, Any], system_promp
     prompt_parts.append("<task>")
     prompt_parts.append(phase.get('task', ''))
     prompt_parts.append("</task>")
-    prompt_parts.append("")
-    
-    # Add output instruction
-    phase_id = phase.get('id')
-    tag_name = phase_tags.get(phase_id, f"fase_{phase_id}")
-    
-    prompt_parts.extend([
-        "IMPORTANTE: Tu respuesta debe ir dentro de las siguientes etiquetas:",
-        f"<{tag_name}>",
-        "<!-- Aquí debe ir tu respuesta completa en texto libre, NO en JSON -->",
-        f"</{tag_name}>",
-        "",
-        "No agregues texto antes o después de estas etiquetas."
-    ])
     
     return "\n".join(prompt_parts)
 
 
 def extract_content_from_tags(response: str, phase_tags: Dict[str, str], phase_id: str) -> Optional[str]:
-    """Extract content from output tags for a specific phase."""
-    tag_name = phase_tags.get(phase_id, f"fase_{phase_id}")
-    
-    # Try to find content between the expected tags
-    patterns = [
-        f'<{tag_name}>(.*?)</{tag_name}>',  # New format: <tag_name>content</tag_name>
-        f'<output json {tag_name}>(.*?)</output>',  # Legacy format
-        f'<output json {tag_name}="">(.*?)</output>',  # Legacy format with empty attr
-        '<output json[^>]*>(.*?)</output>',  # Fallback for any output json tag
-        '<output>(.*?)</output>'  # Fallback for basic output tag
-    ]
-    
-    for pattern in patterns:
-        match = re.search(pattern, response, re.DOTALL | re.IGNORECASE)
-        if match:
-            content = match.group(1).strip()
-            # Remove HTML comments
-            content = re.sub(r'<!--.*?-->', '', content, flags=re.DOTALL).strip()
-            if content:
-                return content
-    
+    """Extract content from LLM response. Now simply returns the full response since we removed XML tags."""
+    if response and response.strip():
+        return response.strip()
     return None
 
 
@@ -74,9 +48,9 @@ def build_context_string(phase_outputs: Dict[str, str], phase_tags: Dict[str, st
     
     for phase_id in phase_order:
         if phase_id in phase_outputs and phase_id != up_to_phase:
-            tag_name = phase_tags.get(phase_id, f"fase_{phase_id}")
             content = phase_outputs[phase_id]
-            context_parts.append(f"<{tag_name}>\n{content}\n</{tag_name}>")
+            # Simply add content with a clear separator, no XML tags needed
+            context_parts.append(f"=== FASE {phase_id} ===\n{content}")
         
         # Stop when we reach the target phase
         if phase_id == up_to_phase:
